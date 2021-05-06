@@ -1,5 +1,5 @@
 import datetime
-from views import IndexView, AboutView
+from views import IndexView, AboutView, ContactsView
 
 
 # front controllers
@@ -12,4 +12,5 @@ fronts = [date_front]
 routes = {
     '/': IndexView(),
     '/about/': AboutView(),
+    '/contacts/': ContactsView(),
 }
