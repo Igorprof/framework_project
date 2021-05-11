@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    {% block style %}{% endblock %}
+</head>
+<body>
+    <div class="menu">
+        <li><a href="/">Главная</a></li>
+        <li><a href="/about/">О нас</a></li>
+        <li><a href="/contacts/">Контакты</a></li>
+    </div>
+    <hr>
+    {% block body %}    {% endblock %}
+</body>
+</html>

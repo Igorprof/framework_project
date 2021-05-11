@@ -1,15 +1,19 @@
-from jinja2 import Template
+from jinja2 import FileSystemLoader
+from jinja2.environment import Environment
 
 
-def render(template_name, **kwargs):
+# def render(template_name, **kwargs):
 
-    with open(template_name, encoding='utf-8') as f:
-        template = Template(f.read())
+#     with open(template_name, encoding='utf-8') as f:
+#         template = Template(f.read())
+
+#     return template.render(**kwargs)
+
+
+def render(template_name, folder='templates', **kwargs):
+
+    env = Environment()
+    env.loader = FileSystemLoader(folder)
+    template = env.get_template(template_name)
 
     return template.render(**kwargs)
-
-
-if __name__ == '__main__':
-    # Пример
-    output_test = render('templates/index.html', date='now')
-    print(output_test)
