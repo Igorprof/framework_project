@@ -1,26 +1,37 @@
 from klass_framework.temlator import render
 from patterns.сreational_patterns import Engine, Logger
+from patterns.structural_patterns import AppRoute, Debug
 
 site = Engine()
 logger = Logger('main')
 
+routes = {}
 
+
+@AppRoute(routes=routes, url='/')
 class IndexView:
+    @Debug(name='Index')
     def __call__(self, request):
         return '200 OK', render('index.html', date=request.get('date', None), objects_list=site.categories)
 
 
+@AppRoute(routes=routes, url='/about/')
 class AboutView:
+    @Debug(name='About')
     def __call__(self, request):
         return '200 OK', render('about.html')
 
 
+@AppRoute(routes=routes, url='/contacts/')
 class ContactsView:
+    @Debug(name='ContactsView')
     def __call__(self, request):
         return '200 OK', render('contacts.html')
 
 
+@AppRoute(routes=routes, url='/courses-list/')
 class CoursesList:
+    @Debug(name='CoursesList')
     def __call__(self, request):
         logger.log('Список курсов')
         try:
@@ -30,9 +41,11 @@ class CoursesList:
             return '200 OK', 'No courses have been added yet'
 
 
+@AppRoute(routes=routes, url='/create-course/')
 class CreateCourse:
     category_id = -1
 
+    @Debug(name='CreateCourse')
     def __call__(self, request):
         if request['method'] == 'POST':
             data = request['data']
@@ -60,8 +73,9 @@ class CreateCourse:
                 return '200 OK', 'No categories have been added yet'
 
 
-
+@AppRoute(routes=routes, url='/create-category/')
 class CreateCategory:
+    @Debug(name='CreateCategory')
     def __call__(self, request):
 
         if request['method'] == 'POST':
@@ -87,13 +101,17 @@ class CreateCategory:
             return '200 OK', render('create_category.html', categories=categories)
 
 
+@AppRoute(routes=routes, url='/category-list/')
 class CategoryList:
+    @Debug(name='CategoryList')
     def __call__(self, request):
         logger.log('Список категорий')
         return '200 OK', render('category_list.html', objects_list=site.categories)
 
 
+@AppRoute(routes=routes, url='/copy-course/')
 class CopyCourse:
+    @Debug(name='CopyCourse')
     def __call__(self, request):
         request_params = request['request_params']
 

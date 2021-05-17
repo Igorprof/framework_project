@@ -1,7 +1,8 @@
 from wsgiref.simple_server import make_server
 
 from klass_framework.main import Application
-from urls import fronts, routes
+from urls import fronts
+from views import routes
 
 application = Application(routes, fronts)
 
